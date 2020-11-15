@@ -1,6 +1,6 @@
 body {
   margin: 20px;
-  background: rgb(255, 255, 255);
+  background: rgb(253, 202, 143);
 }
 
 .square {
@@ -16,3 +16,46 @@ body {
   padding: 0;
   text-align: center;
 }
+
+.controls {
+  display: inline-block;
+}
+
+.controls div {
+  display: inline-block;
+}
+
+.reset-button {
+  text-align: center;
+  background: rgb(228, 226, 221);
+  width: 34px;
+  height: 34px;
+  margin: 5px;
+}
+
+.flag-button {
+  text-align: center;
+  background: rgb(228, 226, 221);
+  width: 34px;
+  height: 34px;
+  margin: 5px;
+}
+
+.timer {
+  text-align: center;
+  background: rgb(0, 0, 0);
+  color: rgb(255, 0, 0);
+  width: 68px;
+  height: 34px;
+  margin: 5px;
+}
+
+.mines-left {
+  text-align: center;
+  background: rgb(0, 0, 0);
+  color: rgb(255, 0, 0);
+  width: 68px;
+  height: 34px;
+  margin: 5px;
+}
+

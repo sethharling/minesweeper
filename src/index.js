@@ -22,6 +22,19 @@ class Square extends React.Component {
   }
 }
 
+class Controls extends React.Component {
+  render() {
+    return (
+      <div className="controls">
+        <button className="reset-button"></button>
+        <button className="flag-button"></button>
+        <div className="timer"></div>
+        <div className="mines-left"></div>
+      </div>
+    );
+  }
+}
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +78,9 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
+        <div className="game-controls">
+          <Controls/>
+        </div>
         <div className="game-board">
           <Board/>
         </div>
