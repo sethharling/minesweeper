@@ -26,8 +26,8 @@ class Controls extends React.Component {
   render() {
     return (
       <div className="controls">
-        <button className="reset-button"></button>
-        <button className="flag-button"></button>
+        <button className="reset-button"><img/></button>
+        <button className="flag-button"><img/></button>
         <div className="timer"></div>
         <div className="mines-left"></div>
       </div>
