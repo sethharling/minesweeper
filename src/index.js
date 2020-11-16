@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import flag from './pics/flag-pic.png';
+import resetIcon from './pics/reset-icon.jpg';
 
 class Square extends React.Component {
   constructor(props) {
@@ -27,8 +28,8 @@ class Controls extends React.Component {
   render() {
     return (
       <div className="controls">
-        <button className="reset-button"><img/></button>
-        <button className="flag-button"><img src={flag} alt='flag'/></button>
+        <button className="reset-button"><img src={resetIcon} alt="reset"/></button>
+        <button className="flag-button"><img src={flag} alt="flag"/></button>
         <div className="timer">000</div>
         <div className="mines-left">040</div>
       </div>
@@ -48,7 +49,9 @@ class Board extends React.Component {
 
   addNumbers(array) {
     for (let i = 0; i < array.length; i++) {
-      if (array[i] == )
+      if (null) {
+
+      }
     }
   }
 
@@ -84,7 +87,8 @@ class Board extends React.Component {
 class Game extends React.Component {
   render() {
     return (
-      <div className="game">
+      <div>
+        <div className="title">Minesweeper</div>
         <div className="game-controls">
           <Controls/>
         </div>
