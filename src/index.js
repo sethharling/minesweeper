@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import flag from './pics/flag-pic.png';
 
 class Square extends React.Component {
   constructor(props) {
@@ -27,9 +28,9 @@ class Controls extends React.Component {
     return (
       <div className="controls">
         <button className="reset-button"><img/></button>
-        <button className="flag-button"><img/></button>
-        <div className="timer"></div>
-        <div className="mines-left"></div>
+        <button className="flag-button"><img src={flag} alt='flag'/></button>
+        <div className="timer">000</div>
+        <div className="mines-left">040</div>
       </div>
     );
   }
@@ -43,6 +44,12 @@ class Board extends React.Component {
       numRows: 16,
       numCols: 16,
     };
+  }
+
+  addNumbers(array) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] == )
+    }
   }
 
   componentDidMount() {
