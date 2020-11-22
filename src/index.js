@@ -15,6 +15,22 @@ class Square extends React.Component {
     };
   }
 
+  getRandomNumbers() {
+    let randomNumbers = [];
+    while (randomNumbers.length < 40) {
+      let num = Math.floor(Math.random() * 256) + 1;
+      if (randomNumbers.indexOf(num) === -1) randomNumbers.push(num);
+    }
+    return randomNumbers;
+  }
+
+  setBombs() {
+    let bombNums = this.getRandomNumbers();
+    if (bombNums.indexOf(this.key) != -1) {
+      this.isBomb = true;
+    }
+  }
+
   render() {
     return (
       <button className="square">
@@ -44,7 +60,13 @@ class Board extends React.Component {
       grid: [],
       numRows: 16,
       numCols: 16,
+      keyNum: 0,
     };
+  }
+  
+  keyNumber() {
+    this.state.keyNum ++;
+    return this.state.keyNum;
   }
 
   addNumbers(array) {
@@ -75,7 +97,12 @@ class Board extends React.Component {
          {grid.map((row, rowIdx) => {
            return (
              <div>
-               {row.map((grid, gridIdx) => <Square></Square>)}
+               {row.map((grid, gridIdx) => <Square
+                  key={this.keyNumber()}
+                  
+                  >
+                  
+               </Square>)}
              </div>
            );
          })}
