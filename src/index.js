@@ -4,31 +4,25 @@ import './index.css';
 import flag from './pics/flag-pic.png';
 import resetIcon from './pics/reset-icon.jpg';
 
+function getRandomNumbers() {
+  let randomNumbers = [];
+    while (randomNumbers.length < 40) {
+      let num = Math.floor(Math.random() * 256) + 1;
+      if (randomNumbers.indexOf(num) === -1) randomNumbers.push(num);
+    }
+    console.log(randomNumbers)
+    return randomNumbers;
+}
+
+let bombNums = getRandomNumbers();
+
 class Square extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isBomb: false,
       flagged: false,
-      numBombs: 0,
-      squareNum: 0,
     };
-  }
-
-  getRandomNumbers() {
-    let randomNumbers = [];
-    while (randomNumbers.length < 40) {
-      let num = Math.floor(Math.random() * 256) + 1;
-      if (randomNumbers.indexOf(num) === -1) randomNumbers.push(num);
-    }
-    return randomNumbers;
-  }
-
-  setBombs() {
-    let bombNums = this.getRandomNumbers();
-    if (bombNums.indexOf(this.key) != -1) {
-      this.isBomb = true;
-    }
   }
 
   render() {
@@ -61,22 +55,20 @@ class Board extends React.Component {
       numRows: 16,
       numCols: 16,
       keyNum: 0,
+      numBombs: 0,
     };
   }
   
-  keyNumber() {
+  assignNumber() {
     this.state.keyNum ++;
-    return this.state.keyNum;
-  }
-
-  addNumbers(array) {
-    for (let i = 0; i < array.length; i++) {
-      if (null) {
-
-      }
+    if (bombNums.indexOf(this.state.keyNum) === -1) {
+      return this.state.keyNum;  
+    } else {
+      this.state.numBombs ++;
+      return 'BOMB' + this.state.numBombs;
     }
   }
-
+  
   componentDidMount() {
     const grid = [];
     for (let row = 0; row < this.state.numRows; row++) {
@@ -98,7 +90,7 @@ class Board extends React.Component {
            return (
              <div>
                {row.map((grid, gridIdx) => <Square
-                  key={this.keyNumber()}
+                  key={this.assignNumber()}
                   
                   >
                   
