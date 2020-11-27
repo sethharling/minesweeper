@@ -4,44 +4,15 @@ import './index.css';
 import flag from './pics/flag-pic.png';
 import resetIcon from './pics/reset-icon.jpg';
 
-function getRandomNumbers() {
-  let randomNumbers = [];
-    while (randomNumbers.length < 40) {
-      let num = Math.floor(Math.random() * 256) + 1;
-      if (randomNumbers.indexOf(num) === -1) randomNumbers.push(num);
-    }
-    console.log(randomNumbers)
-    return randomNumbers;
-}
-
-let bombNums = getRandomNumbers();
-
 class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isBomb: false,
-      flagged: false,
-    };
-  }
-
+  
   render() {
     return (
-      <button className="square">
-        {}
-      </button>
-    );
-  }
-}
-
-class Controls extends React.Component {
-  render() {
-    return (
-      <div className="controls">
-        <button className="reset-button"><img src={resetIcon} alt="reset"/></button>
-        <button className="flag-button"><img src={flag} alt="flag"/></button>
-        <div className="timer">000</div>
-        <div className="mines-left">040</div>
+      <div 
+        className="square" 
+        onClick={() => this.props.onClick()}
+      >
+        
       </div>
     );
   }
@@ -51,69 +22,55 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      numRows: this.props.height,
+      numCols: this.props.width,
+      numMines: this.props.mines,
       grid: [],
-      numRows: 16,
-      numCols: 16,
-      keyNum: 0,
-      numBombs: 0,
     };
   }
-  
-  assignNumber() {
-    this.state.keyNum ++;
-    if (bombNums.indexOf(this.state.keyNum) === -1) {
-      return this.state.keyNum;  
-    } else {
-      this.state.numBombs ++;
-      return 'BOMB' + this.state.numBombs;
-    }
-  }
-  
-  componentDidMount() {
-    const grid = [];
-    for (let row = 0; row < this.state.numRows; row++) {
-      const currentRow = [];
-      for (let col = 0; col < this.state.numCols; col++) {
-        currentRow.push([]);
-      }
-      grid.push(currentRow);
-    }
-    this.setState({grid});
+
+  handleCLick(square) {
+
   }
 
-   render() {
-    const {grid} = this.state;
-    console.log(grid);
+  //creates an empty array to start with
+  createArray(width, height) {
+
+  }
+
+  //plantes the mines randomly
+  plantMines(mines) {
+
+  }
+
+  //checks surrounding squares to see if its a mine
+  getSurrounding() {
+
+  }
+
+  //renders board grid using helper functions
+  renderBoard() {
+
+  }
+
+  render() {
     return (
-      <div className="grid">
-         {grid.map((row, rowIdx) => {
-           return (
-             <div>
-               {row.map((grid, gridIdx) => <Square
-                  key={this.assignNumber()}
-                  
-                  >
-                  
-               </Square>)}
-             </div>
-           );
-         })}
-      </div>
+      <Square />
     );
-   }
+  }
 }
 
 class Game extends React.Component {
+  state = {
+    height: 16,
+    width: 16,
+    mines: 40,
+  }
+
   render() {
     return (
       <div>
-        <div className="title">Minesweeper</div>
-        <div className="game-controls">
-          <Controls/>
-        </div>
-        <div className="game-board">
-          <Board/>
-        </div>
+        <Board height={this.height} width={this.width} mines={this.mines} />
       </div>
     )
   }
