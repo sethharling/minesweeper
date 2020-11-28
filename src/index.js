@@ -29,18 +29,44 @@ class Board extends React.Component {
     };
   }
 
-  handleCLick(square) {
+  getRandomNumber(num) {
+    return Math.floor(Math.random() * num);
+  }
+
+  handleClick(square) {
 
   }
 
   //creates an empty array to start with
   createArray(width, height) {
+    const grid = [];
+    for (let row = 0; row < height; row ++) {
+      const currentRow = [];
+      
+      for (let col = 0; col < width; numCols ++) {
+        currentRow.push();
+      }
+
+      grid.push(currentRow);
+    }
 
   }
 
   //plantes the mines randomly
-  plantMines(mines) {
+  plantMines(board, height, width, mines) {
+    let randomx, randomy, minesPlanted = 0;
 
+    while (minesPlanted < mines) {
+      randomx = this.getRandomNumber(width);
+      randomy = this.getRandomNumber(height);
+
+      if (!(board[randomx][randomy].isMine)) {
+        board[randomx][randomy].isMine = true;
+        minesPlanted ++;
+      }
+    }
+
+    return board;
   }
 
   //checks surrounding squares to see if its a mine
