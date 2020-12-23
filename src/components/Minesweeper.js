@@ -11,11 +11,14 @@ import Stage from "./Stage";
 import Display from "./Display";
 import StartButton from "./StartButton";
 
+const STAGE_HEIGHT = 16;
+const STAGE_WIDTH = 16;
+
 const Minesweeper = () => {
 	return (
 		<StyledMinesweeperWrapper>
 			<StyledMinesweeper>
-				<Stage>
+				<Stage width={STAGE_WIDTH} height={STAGE_HEIGHT}>
 					<top>
 						<Display>Timer</Display>
 						<Display>Mines Left</Display>
