@@ -1,12 +1,11 @@
 import React from "react";
 
-import Cell from './Cell';
-import { StyledStage } from './styles/StyledStage';
+import Cell from "./Cell";
 
-const Stage = ({ height, width }) => {
-	<StyledStage width={width} height ={height} >
-		<Cell key={0} isMine={false} isFlagged={false}>cell</Cell>
-	</StyledStage>
-};
+const Stage = ({ stage }) => (
+	<div>
+		<Cell />
+	</div>
+);
 
 export default Stage;
