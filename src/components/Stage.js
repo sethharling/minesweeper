@@ -1,11 +1,13 @@
 import React from "react";
 
-import Cell from "./Cell";
+import { StyledStage } from './styles/StyledStage';
+
+import { createStage } from '../gameHelpers';
 
 const Stage = ({ stage }) => (
-	<div>
-		<Cell />
-	</div>
+	<StyledStage>
+		{createStage()}
+	</StyledStage>
 );
 
 export default Stage;
