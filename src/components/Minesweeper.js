@@ -13,7 +13,7 @@ const Minesweeper = () => {
 
 	return (
 		<div>
-			<Stage>
+			<Stage stage={createStage()} >
 				<top>
 					<div>
 						<Display label="Time" text=" " />
