@@ -1,5 +1,7 @@
 import React from "react";
 
-const Difficulty = () => <div>Difficulty</div>;
+import { StyledDifficulty } from './styles/StyledDifficulty';
+
+const Difficulty = () => <StyledDifficulty>Difficulty</StyledDifficulty>;
 
 export default Difficulty;

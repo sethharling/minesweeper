@@ -1,28 +1,34 @@
 import React from "react";
 import { createStage } from '../gameHelpers';
+import { StyledMinesweeper, StyledMinesweeperWrapper } from './styles/StyledMinesweeper';
 
 //Components
 import Stage from "./Stage";
 import Display from "./Display";
 import StartButton from "./StartButton";
+import FlagButton from './FlagButton';
+import Controls from './Controls';
 
 const Minesweeper = () => {
+	let gameOver, flagEnabled = false;
+	let time, mines = 0;
 
-
-	const startGame = () => {};
+	const resetTime = () => {};
+	
+	const startGame = () => {
+		gameOver = false;
+	};
 
 	return (
-		<div>
-			<Stage stage={createStage()} >
-				<top>
-					<div>
-						<Display label="Time" text=" " />
-						<Display label="Mines" text="000" />
-					</div>
-					<StartButton />
-				</top>
-			</Stage>
-		</div>
+		<StyledMinesweeperWrapper>
+			<StyledMinesweeper>
+				
+				<Controls time={time} mines={mines} gameOver={gameOver} flagEnabled={flagEnabled} />
+				<Stage stage={createStage()} >
+					
+				</Stage>
+			</StyledMinesweeper>
+		</StyledMinesweeperWrapper>
 	);
 };
 

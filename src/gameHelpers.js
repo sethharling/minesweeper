@@ -14,16 +14,17 @@ export const getMinePositions = (x, y, numMines) => {
 };
 
 export const createStage = () => {
+	let minePositions = getMinePositions(STAGE_WIDTH, STAGE_HEIGHT, MINES);
 	let rows = [];
 	for(var i = 0; i < STAGE_WIDTH; i++){
 	  let squares = [];
 	  for(var j = 0; j < STAGE_HEIGHT; j++){
-		squares.push(<Cell key={16 * i + j} />);
+		squares.push(<Cell key={16 * i + j} isMine={minePositions.indexOf(16 * i + j) === -1 ? false : true } />);
 	  }
-	  rows.push(<div className="board-row">{squares}</div>);
+	  rows.push(<div>{squares}</div>); // board row
 	}
 	return rows;
-  }
+}
 
 export const checkIfMine = () => {
 
