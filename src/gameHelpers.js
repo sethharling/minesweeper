@@ -13,6 +13,20 @@ export const getMinePositions = (x, y, numMines) => {
 	return randomNums;
 };
 
+export const getMineCounts = () => {
+	let minePositions = getMinePositions(STAGE_WIDTH, STAGE_HEIGHT, MINES);
+
+	for (let minePos = 0; minePos < minePositions.length; minePos++) {
+		// loop thru mine positions
+		// add values that come from algorithm above to new array
+		// loop thru new array and count every instance of each number ( if none number is null or blank)
+		// store count and set that count to the number of mines surrounding the block with the corresponding key
+		// [n-width-1][n-width][n-width+1]
+		// [n-1      ][n      ][n+1      ]
+		// [n+width-1][n+width][n+width+1]
+	}
+};
+
 export const createStage = () => {
 	let minePositions = getMinePositions(STAGE_WIDTH, STAGE_HEIGHT, MINES);
 	let rows = [];
