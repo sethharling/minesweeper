@@ -13,22 +13,204 @@ export const getMinePositions = (x, y, numMines) => {
 	return randomNums;
 };
 
-export const getMineCounts = () => {
-	let minePositions = getMinePositions(STAGE_WIDTH, STAGE_HEIGHT, MINES);
+let minePositions = getMinePositions(STAGE_WIDTH, STAGE_HEIGHT, MINES);
 
-	for (let minePos = 0; minePos < minePositions.length; minePos++) {
-		// loop thru mine positions
+export const getMineCounts = () => {
+	let surroundingCells = [];
+
+	for (let minePos = 0; minePos < minePositions.length; minePos++) { // loop thru mine positions
+
+		// [n-height-1][n-1][n+height-1]	[0][16][32]
+		// [n-height  ][n  ][n+height  ]	[1][17][33]  <-- if height is 16
+		// [n-height+1][n+1][n+height+1]	[2][18][34]
+
 		// add values that come from algorithm above to new array
-		// loop thru new array and count every instance of each number ( if none number is null or blank)
-		// store count and set that count to the number of mines surrounding the block with the corresponding key
-		// [n-width-1][n-width][n-width+1]
-		// [n-1      ][n      ][n+1      ]
-		// [n+width-1][n+width][n+width+1]
+
+		//check if in top row
+		if (minePos % STAGE_HEIGHT === 0) {
+
+			//[n-height  ][n  ][n+height  ]
+			//[n-height+1][n+1][n+height+1]
+
+			//dont include first and last column
+			if (!(minePos >= 0 && minePos <= STAGE_HEIGHT) 
+				&& !(minePos >= ((STAGE_HEIGHT * STAGE_WIDTH) - STAGE_HEIGHT)
+				&& minePos <= (STAGE_HEIGHT * STAGE_WIDTH))) {
+
+				// [n-height]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT));
+				// [n-height+1]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT + 1));
+				// [n+1]
+				surroundingCells.push((minePositions[minePos] + 1));
+				// [n+height+1]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT + 1));
+				// [n+height]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT));
+			}
+			
+		} else if (minePos % STAGE_HEIGHT === (STAGE_HEIGHT - 1)) { //check if in bottom row
+
+			//[n-height-1][n-1][n+height-1]
+			//[n-height  ][n  ][n+height  ]
+
+			//dont include first and last column
+			if (!(minePos >= 0 && minePos <= STAGE_HEIGHT) 
+				&& !(minePos >= ((STAGE_HEIGHT * STAGE_WIDTH) - STAGE_HEIGHT)
+				&& minePos <= (STAGE_HEIGHT * STAGE_WIDTH))) {
+				// n-height
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT));
+				// n - height - 1
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT - 1));
+				// n-1
+				surroundingCells.push((minePositions[minePos] - 1)); 
+				// n+height-1
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT - 1));
+				//n+ height
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT));
+			}
+			
+		} else if (minePos >= 0 && minePos <= STAGE_HEIGHT) { // check if in first column
+			//check if in first column and first row
+			if (minePos % STAGE_HEIGHT === 0) {
+				//[n  ][n+height  ]
+				//[n+1][n+height+1]
+
+				// [n+1]
+				surroundingCells.push((minePositions[minePos] + 1));
+				// [n+height+1]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT + 1));
+				// [n+height]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT));
+
+			} else if (minePos % STAGE_HEIGHT === (STAGE_HEIGHT - 1)) { //check if in first column and last row
+				// [n-1][n+height-1]
+				// [n  ][n+height  ]
+
+				// [n-1]
+				surroundingCells.push((minePositions[minePos] - 1));
+				// [n+height-1]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT - 1));
+				// [n+height]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT));
+
+			} else { //the rest of the cells in the first column
+				//[n-1][n+height-1]
+				//[n  ][n+height  ]
+				//[n+1][n+height+1]
+
+				// [n-1]
+				surroundingCells.push((minePositions[minePos] - 1));
+				// [n+height-1]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT - 1));
+				// [n+height]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT));
+				// [n+height+1]
+				surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT + 1));
+				// [n+1]
+				surroundingCells.push((minePositions[minePos] + 1));
+
+			}
+
+		//check if in last column
+		} else if (minePos >= ((STAGE_HEIGHT * STAGE_WIDTH) - STAGE_HEIGHT) && minePos <= (STAGE_HEIGHT * STAGE_WIDTH)) {
+			//check if in last column and first row
+			if (minePos % STAGE_HEIGHT === 0) {
+				//[n-height  ][n  ]
+				//[n-height+1][n+1]
+
+				// [n-height]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT));
+				// [n-height+1]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT + 1));
+				// [n+1]
+				surroundingCells.push((minePositions[minePos] + 1));
+
+			} else if (minePos % STAGE_HEIGHT === (STAGE_HEIGHT - 1)) { //check if in last column and last row
+				//[n-height-1][n-1]
+				//[n-height  ][n  ]
+
+				// [n-height-1]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT - 1));
+				// [n-height]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT));
+				// [n-1]
+				surroundingCells.push((minePositions[minePos] - 1));
+
+			} else { //the rest of blocks in last row
+				//[n-height-1][n-1]
+				//[n-height  ][n  ]
+				//[n-height+1][n+1]
+
+				//[n-1]
+				surroundingCells.push((minePositions[minePos] - 1));
+				//[n-height-1]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT - 1));
+				//[n-height]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT));
+				//[n-height+1]
+				surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT + 1));
+				//[n+1]
+				surroundingCells.push((minePositions[minePos] + 1));
+
+			}
+		} else { //if in any other location:
+
+			//[n-height-1][n-1][n+height-1]
+			//[n-height  ][n  ][n+height  ]
+			//[n-height+1][n+1][n+height+1]
+
+			// [n-height-1]
+			surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT - 1));
+			// [n-1]
+			surroundingCells.push((minePositions[minePos] - 1));
+			// [n+height-1]
+			surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT - 1));
+			// [n+height]
+			surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT));
+			// [n+height+1]
+			surroundingCells.push((minePositions[minePos] + STAGE_HEIGHT + 1));
+			// [n+1]
+			surroundingCells.push((minePositions[minePos] + 1));
+			// [n-height+1]
+			surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT + 1));
+			// [n-height]
+			surroundingCells.push((minePositions[minePos] - STAGE_HEIGHT));
+
+		}
 	}
+	// loop thru new array and count every instance of each number (if none, number is null or blank)
+	// store count and set that count to the number of mines surrounding the block with the same key
+	// storing inside 2D array where [[cell key, number of mines surrounding], ...]
+	let mineCounts = [];
+	for (let num = 0; num < surroundingCells.length; num ++) { // loop thru new array
+
+		//finding count of each number
+		let count = 0;
+		for(let i = 0; i < surroundingCells.length; ++i){
+			if(surroundingCells[i] === num){
+				count++;
+			}
+		}
+
+		//create second array and push key num and num of surrounding mines
+		let mineCount = [];
+		mineCount.push(surroundingCells[num]);
+		mineCount.push(count);
+		mineCounts.push(mineCount);
+
+	}
+	console.log(minePositions);
+	console.log(surroundingCells);
+	console.log(mineCounts);
+	return mineCounts;
 };
 
+//create function that will return index of array inside mineCounts that has the right key
+export const retIndx = () => {};
+
 export const createStage = () => {
-	let minePositions = getMinePositions(STAGE_WIDTH, STAGE_HEIGHT, MINES);
+	let mineCounts = getMineCounts();
 	let rows = [];
 	for (let i = 0; i < STAGE_WIDTH; i++) {
 		let squares = [];
@@ -37,50 +219,11 @@ export const createStage = () => {
 				<Cell
 					key={16 * i + j}
 					isMine={minePositions.indexOf(16 * i + j) === -1 ? false : true}
+					//surroundingMines={minePositions.indexOf(16 * i + j) === -1 ? mineCounts[(16 * i + j)][1] : null}
 				/>
 			);
 		}
 		rows.push(<div>{squares}</div>); // board row
-	}
-
-	for (let i = 0; i < rows.length; i++) {
-		for (let j = 0; j < rows[i].length; j++) {
-			if (rows.indexOf(i) === 0) {
-				// if its the top row
-				if (rows.indexOf(j) === 0) {
-					//if its the top left
-					//first check if current square is a mine, if it is go to the next
-					//check east square rows[i][j+1]
-					//check southeast square rows[i+1][j+1]
-					//check south square[]
-					//push a cell onto the square with a value stating if its a mine or not, if not,
-					// push with value representing the number of mines around it.
-				} else if (rows.indexOf(j) === STAGE_WIDTH - 1) {
-					// top right
-					//check west
-					//check southwest
-					//check south
-				} else {
-					// other blocks in top row
-					//check west
-					//check southwest
-					//check south
-					//check southeast
-					//check east
-				}
-			} else if (rows.indexOf(i) === STAGE_HEIGHT - 1) {
-				// bottom row
-				if (rows.indexOf(j) === 0) {
-					// bottom left
-				} else if (rows.indexOf(j) === STAGE_WIDTH - 1) {
-					// bottom right
-				} else {
-					// other blocks in bottom row
-				}
-			} else {
-				// the rest of the blocks
-			}
-		}
 	}
 
 	return rows;

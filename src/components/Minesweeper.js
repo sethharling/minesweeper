@@ -4,9 +4,6 @@ import { StyledMinesweeper, StyledMinesweeperWrapper } from './styles/StyledMine
 
 //Components
 import Stage from "./Stage";
-import Display from "./Display";
-import StartButton from "./StartButton";
-import FlagButton from './FlagButton';
 import Controls from './Controls';
 
 const Minesweeper = () => {
